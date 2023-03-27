@@ -4,9 +4,8 @@ import type { PageServerLoad } from "./$types.js";
 import { NetworkException } from "$utils";
 
 export const load = (async ({ url }) => {
-  const result = await db.posts.count();
-  if (result.isException) {
-    const exception = result();
+  const [nrOfPosts, exception] = await db.posts.count();
+  if (exception) {
     if (exception instanceof NetworkException) {
       // retry after 1 second
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -17,5 +16,5 @@ export const load = (async ({ url }) => {
     throw error(500);
   }
 
-  return { nrOfPosts: result() };
+  return { nrOfPosts };
 }) satisfies PageServerLoad;
