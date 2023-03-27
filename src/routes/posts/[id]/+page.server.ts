@@ -2,25 +2,26 @@ import db from "$db";
 import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types.js";
 import { FetchException } from "$utils";
+import { processInParallel } from "exceptionally/utils";
 
 export const load = (async ({ params }) => {
-  const [postResult, commentsResult] = await Promise.all([
+  const result = await processInParallel([
     db.posts.getById(params.id),
     db.comments.getFromPost(params.id),
   ]);
-  if (postResult.isException || commentsResult.isException) {
-    const postException = postResult();
-    const commentsException = commentsResult();
-    if (postException instanceof FetchException) {
-      throw error(postException.code);
-    }
-
-    if (commentsException instanceof FetchException) {
-      throw error(commentsException.code);
+  if (result.isException) {
+    const exceptions = result().filter(Boolean);
+    const fetchException = exceptions.find(
+      (exception) => exception instanceof FetchException
+    ) as FetchException | undefined;
+    if (fetchException) {
+      throw error(fetchException.code);
     }
 
     throw error(500);
   }
 
-  return { post: postResult(), comments: commentsResult() };
+  const [post, comments] = result();
+
+  return { post, comments };
 }) satisfies PageServerLoad;
