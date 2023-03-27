@@ -1,38 +1,18 @@
-# create-svelte
+# `excpetionally` demo
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+This is a demonstration how [`exceptionally`](https://github.com/ivanhofer/exceptionally) can be used to improve your code quality.
 
-## Creating a project
+You can find the related slides [here](https://github.com/ivanhofer/slides/blob/main/An%20'exeptionally'%20talk.pdf).
 
-If you're seeing this, you've probably already done this step. Congrats!
+## branches
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+This repository has a few branches to show you how to get from zero exception handling to fully typed exceptions.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+The branches show:
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+- [`1-base`](https://github.com/ivanhofer/exceptionally-demo/tree/1-base): the starting point that offers no exception handling
+- [`2-throw-errors`](https://github.com/ivanhofer/exceptionally-demo/tree/2-throw-errors): throw errors whenever something could go wrong during `fetch`
+- [`3-data-exception-tuple`](https://github.com/ivanhofer/exceptionally-demo/tree/3-data-exception-tuple): return exceptions instead of throwing them using the `[data,exception]-tuple` approach
+- [`4-exception-classes`](https://github.com/ivanhofer/exceptionally-demo/tree/4-exception-classes): return different exception classes to be able to distinguish them
+- [`5-exceptionally`](https://github.com/ivanhofer/exceptionally-demo/tree/5-exceptionally): refactor the codebase using `exceptionally` showing it's easy integration and utility functions
+- [`6-complete`](https://github.com/ivanhofer/exceptionally-demo/tree/6-complete): showcase usage of utility functions
