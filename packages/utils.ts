@@ -1,3 +1,5 @@
+import { exception, success } from "exceptionally";
+
 export class NetworkException extends Error {
   readonly #id = "NetworkException";
 }
@@ -20,23 +22,21 @@ export class ValidationException extends Error {
 
 const matchesSchema = (data: unknown) => !!data;
 
-type Result<Data, Exception> = [Data, undefined] | [undefined, Exception];
-
 export const typedJsonFetch = async <Data>(
   ...args: Parameters<typeof fetch>
-): Promise<Result<Data, Error>> => {
+) => {
   const response = await fetch(...args).catch((e) => {
     console.error(e);
     return undefined;
   });
 
   if (!response) {
-    return [undefined, new NetworkException()];
+    return exception(new NetworkException());
   }
 
   if (!response.ok) {
     // non 200 status codes
-    return [undefined, new FetchException(response.status)];
+    return exception(new FetchException(response.status));
   }
 
   const data = await response.json().catch((e) => {
@@ -45,13 +45,13 @@ export const typedJsonFetch = async <Data>(
   });
 
   if (!data) {
-    return [undefined, new JsonParseException()];
+    return exception(new JsonParseException());
   }
 
   if (!matchesSchema(data)) {
     // usually you would do some kind of data validation here (e.g. using `zod`)
-    return [undefined, new ValidationException()];
+    return exception(new ValidationException());
   }
 
-  return [data, undefined];
+  return success(data as Data);
 };

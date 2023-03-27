@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@sveltejs/adapter-auto': ^2.0.0
   '@sveltejs/kit': ^1.14.0
+  exceptionally: ^3.0.1
   svelte: ^3.57.0
   svelte-check: ^3.1.4
   tslib: ^2.5.0
@@ -12,6 +13,7 @@ specifiers:
 devDependencies:
   '@sveltejs/adapter-auto': 2.0.0_@sveltejs+kit@1.14.0
   '@sveltejs/kit': 1.14.0_svelte@3.57.0+vite@4.2.1
+  exceptionally: 3.0.1_typescript@5.0.2
   svelte: 3.57.0
   svelte-check: 3.1.4_svelte@3.57.0
   tslib: 2.5.0
@@ -456,6 +458,14 @@ packages:
 
   /esm-env/1.0.0:
     resolution: {integrity: sha512-Cf6VksWPsTuW01vU9Mk/3vRue91Zevka5SjyNf3nEpokFRuqt/KjUQoGAwq9qMmhpLTHmXzSIrFRw8zxWzmFBA==}
+    dev: true
+
+  /exceptionally/3.0.1_typescript@5.0.2:
+    resolution: {integrity: sha512-RbkHW1h7XyYvsK064Bidai9BiCnkYsJGJQnTDyJpm6q51x3WS+pWI0wY/2OpyS7objOh7NU7kM5Q1nAabNALpg==}
+    peerDependencies:
+      typescript: ^5.0
+    dependencies:
+      typescript: 5.0.2
     dev: true
 
   /fast-glob/3.2.12:

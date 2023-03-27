@@ -8,15 +8,13 @@ export const load = (async ({ params }) => {
     db.posts.getById(params.id),
     db.comments.getFromPost(params.id),
   ]);
-
-  const [post, postException] = postResult;
-  const [comments, commentsException] = commentsResult;
-
-  if (postException || commentsException) {
+  if (postResult.isException || commentsResult.isException) {
+    const postException = postResult();
+    const commentsException = commentsResult();
     if (postException instanceof FetchException) {
       throw error(postException.code);
     }
-    
+
     if (commentsException instanceof FetchException) {
       throw error(commentsException.code);
     }
@@ -24,5 +22,5 @@ export const load = (async ({ params }) => {
     throw error(500);
   }
 
-  return { post, comments };
+  return { post: postResult(), comments: commentsResult() };
 }) satisfies PageServerLoad;

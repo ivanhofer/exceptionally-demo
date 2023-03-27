@@ -1,4 +1,5 @@
 import { typedJsonFetch } from "$utils";
+import { success } from "exceptionally";
 
 type Post = {
   id: number;
@@ -7,13 +8,13 @@ type Post = {
 };
 
 const count = async () => {
-  const [data, exception] = await typedJsonFetch<Post[]>(
+  const result = await typedJsonFetch<Post[]>(
     "https://jsonplaceholder.typicode.com/posts"
   );
 
-  return exception
-    ? ([undefined, exception] as const)
-    : ([data.length, undefined] as const);
+  if (result.isException) return result;
+
+  return success(result().length);
 };
 
 const getAll = async () => {

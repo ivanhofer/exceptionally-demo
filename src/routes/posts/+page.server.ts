@@ -3,10 +3,10 @@ import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types.js";
 
 export const load = (async () => {
-  const [posts, exception] = await db.posts.getAll();
-  if (exception) {
+  const result = await db.posts.getAll();
+  if (result.isException) {
     throw error(500);
   }
 
-  return { posts };
+  return { posts: result() };
 }) satisfies PageServerLoad;
