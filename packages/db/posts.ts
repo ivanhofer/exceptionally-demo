@@ -7,9 +7,13 @@ type Post = {
 };
 
 const count = async () => {
-  return (
-    await typedJsonFetch<Post[]>("https://jsonplaceholder.typicode.com/posts")
-  ).length;
+  const [data, exception] = await typedJsonFetch<Post[]>(
+    "https://jsonplaceholder.typicode.com/posts"
+  );
+
+  return exception
+    ? ([undefined, exception] as const)
+    : ([data.length, undefined] as const);
 };
 
 const getAll = async () => {
