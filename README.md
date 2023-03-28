@@ -2,7 +2,7 @@
 
 This is a demonstration how [`exceptionally`](https://github.com/ivanhofer/exceptionally) can be used to improve your code quality.
 
-You can find the related slides [here](https://github.com/ivanhofer/slides/blob/main/An%20'exeptionally'%20talk.pdf).
+You can find the related slides [here](https://github.com/ivanhofer/slides/blob/main/An%20'exeptionally'%20demo.pdf).
 
 ## branches
 
