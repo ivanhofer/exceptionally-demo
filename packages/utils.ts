@@ -1,10 +1,10 @@
 const matchesSchema = (data: unknown) => !!data;
 
-type Response<Data, Exception> = [Data, undefined] | [undefined, Exception];
+type Result<Data, Exception> = [Data, undefined] | [undefined, Exception];
 
 export const typedJsonFetch = async <Data>(
   ...args: Parameters<typeof fetch>
-): Promise<Response<Data, Error>> => {
+): Promise<Result<Data, Error>> => {
   const response = await fetch(...args).catch((e) => {
     console.error(e);
     return undefined;
